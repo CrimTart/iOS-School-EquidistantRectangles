@@ -10,6 +10,7 @@
 #import "Masonry.h"
 
 #define SIDE 30
+#define N 4
 
 @interface ViewController ()
 
@@ -23,7 +24,7 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     self.rects = [NSMutableArray new];
-    for(NSUInteger i = 0; i < 4; i++) {
+    for(NSUInteger i = 0; i < N; i++) {
         UIView *rect = [UIView new];
         rect.backgroundColor = [UIColor greenColor];
         [self.rects addObject:rect];
@@ -33,12 +34,12 @@
 
 -(void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    for(NSUInteger i = 0; i < 4; i++) {
+    for(NSUInteger i = 0; i < N; i++) {
         [self.rects[i] mas_updateConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@SIDE);
             make.height.equalTo(@SIDE);
             make.centerY.equalTo(self.view.mas_centerY);
-            NSNumber *leadValue = @((self.view.frame.size.width - 4 * SIDE) * (i + 1) / 5 + i * SIDE);
+            NSNumber *leadValue = @((self.view.frame.size.width - N * SIDE) * (i + 1) / (N + 1) + i * SIDE);
             make.leading.equalTo(leadValue);
         }];
     }
